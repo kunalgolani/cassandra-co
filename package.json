@@ -1,0 +1,32 @@
+{
+  "name": "helenus",
+  "version": "0.0.1",
+  "description": "A very basic ORM and Client for Cassandra, inspired by 3logic's apollo-cassandra",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kunalgolani/helenus.git"
+  },
+  "keywords": [
+    "cassandra",
+    "client",
+    "orm"
+  ],
+  "author": "kunalgolani@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunalgolani/helenus/issues"
+  },
+  "homepage": "https://github.com/kunalgolani/helenus",
+  "dependencies": {
+    "cassandra-driver": "^2.0.0",
+    "es6-promisify": "^1.1.1",
+    "underscore": "^1.8.2"
+  }
+}
