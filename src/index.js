@@ -1,9 +1,10 @@
 "use strict";
 
-var _ = require("underscore"),
-    Adapter = require("./adapter"),
-    Model = require("./model"),
-    models = {};
+var _ = require('underscore'),
+	Adapter = require('./adapter'),
+	Model = require('./model'),
+	models = {};
+
 
 /**
  * @param {String} keyspace The keyspace to operate on
@@ -12,7 +13,8 @@ var _ = require("underscore"),
  */
 
 function Helenus(keyspace, hosts, options) {
-	if (!(this instanceof Helenus)) return new Helenus(keyspace, hosts);
+	if (!(this instanceof Helenus))
+		return new Helenus(keyspace, hosts);
 
 	this.keyspace = keyspace;
 	this.hosts = hosts;
@@ -21,15 +23,15 @@ function Helenus(keyspace, hosts, options) {
 
 _.extend(Helenus.prototype, {
 	/**
-  * @param {String} table The name of the table
-  */
-	getModel: function* (table) {
-		if (!models[table]) models[table] = yield Model(table, this);
+	 * @param {String} table The name of the table
+	 */
+	getModel: function *(table) {
+		if (!models[table])
+			models[table] = yield Model(table, this);
 		return models[table];
 	}
 });
 
-Helenus.types = require("cassandra-driver").types;
+Helenus.types = require('cassandra-driver').types;
 
 module.exports = Helenus;
-//# sourceMappingURL=index.js.map

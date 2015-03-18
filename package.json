@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "babel src -d lib -l es6.destructuring,es6.parameters.default,es6.parameters.rest,es6.spread -s -w",
+    "prepublish": "babel src -d lib -l es6.destructuring,es6.parameters.default,es6.parameters.rest,es6.spread"
   },
   "repository": {
     "type": "git",
@@ -27,7 +29,9 @@
   "dependencies": {
     "cassandra-driver": "^2.0.0",
     "es6-promisify": "^1.1.1",
-    "long": "^2.2.3",
     "underscore": "^1.8.2"
+  },
+  "devDependencies": {
+    "babel": "^4.7.13"
   }
 }
