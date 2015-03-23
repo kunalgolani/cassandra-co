@@ -3,8 +3,7 @@
 var _ = require('underscore'),
 	Adapter = require('./adapter'),
 	composer = require('./composer'),
-	types = require('./types'),
-	validators = require('./validators');
+	types = require('./types');
 
 
 /**
@@ -24,7 +23,6 @@ module.exports = function *(table, db) {
 
 	// extract:
 		// column names
-		// validators
 		// primary keys
 
 	function Row(data, exists) {
@@ -98,7 +96,7 @@ module.exports = function *(table, db) {
 			if (_.difference(columns, _columns).length)
 				throw new Error('trying to delete columns that don\'t exist in the table: ' + columns.join(', '));
 
-			this._validate(true);
+			this._validate();
 
 			var params = [];
 
@@ -157,21 +155,14 @@ module.exports = function *(table, db) {
 					.value();
 		},
 
-		_validate: function(skipTypeChecks) {
+		_validate: function() {
 			// do keys exist?
 			_keys.forEach(key => {
 				if (!this.hasOwnProperty(key))
 					throw new Error('part of primary key ' + key + ' missing');
 			});
 
-			if (skipTypeChecks)
-				return;
-
-			// types of all columns
-			_.each(this._getData(), (val, col) => {
-				if (!validators[_columns[col]](val))
-					throw new Error('Type mismatch: expected type ' + _columns[col] + ' for column ' + col);
-			});
+			// type validations inbuilt into cassandra-driver
 		}
 
 	});
