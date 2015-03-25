@@ -1,6 +1,6 @@
 "use strict";
 
-var _ = require('underscore');
+var _ = require('underskore');
 
 
 // composes various parts of CQL statements, updating the params array along the way

@@ -1,6 +1,6 @@
 "use strict";
 
-var _ = require('underscore'),
+var _ = require('underskore'),
 	Adapter = require('./adapter'),
 	composer = require('./composer'),
 	types = require('./types');
@@ -29,7 +29,7 @@ module.exports = function *(table, db) {
 		if (!(this instanceof Row))
 			return new Row(data);
 
-		this._data = data;
+		this._data = exists ? data : {};
 		this._exists = exists;
 		_.extend(this, data);
 	}
@@ -86,7 +86,7 @@ module.exports = function *(table, db) {
 			// encode data
 			this._validate();
 
-			return yield this[this._exists ? '_update' : '_insert'](this._getData());
+			return yield this[this._exists ? '_update' : '_insert'](this._getData(this._exists));
 		},
 
 		/**
@@ -128,13 +128,14 @@ module.exports = function *(table, db) {
 			var raw = yield db.adapter.execute(query, params);
 			console.log(raw); // check
 
+			this._exists = true;
+			this._data = data;
+
 			return this;
 		},
 
-		_update: function *() {
-			var params = [],
-				data = this._getData(true);
-			// TODO: get delta only
+		_update: function *(data) {
+			var params = [];
 
 			var update = composer.update(table),
 				set = composer.set(data, params),
@@ -145,6 +146,8 @@ module.exports = function *(table, db) {
 			var raw = yield db.adapter.execute(query, params);
 			console.log(raw); // check
 
+			this._data = data;
+
 			return this;
 		},
 
@@ -152,6 +155,7 @@ module.exports = function *(table, db) {
 			return _(this).chain()
 					.pick(_.keys(_columns))
 					.omit(v => typeof v === 'undefined')
+					.delta(this._data)
 					.value();
 		},
 

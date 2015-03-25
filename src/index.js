@@ -1,6 +1,6 @@
 "use strict";
 
-var _ = require('underscore'),
+var _ = require('underskore'),
 	Adapter = require('./adapter'),
 	Model = require('./model'),
 	models = {};
