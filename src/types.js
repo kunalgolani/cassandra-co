@@ -2,7 +2,7 @@
 
 // import cassandra types here
 
-module.exports.find = {
+module.exports = {
     'org.apache.cassandra.db.marshal.AsciiType': 'ascii',
     'org.apache.cassandra.db.marshal.LongType': 'bigint',
     'org.apache.cassandra.db.marshal.BytesType': 'blob',
@@ -19,13 +19,4 @@ module.exports.find = {
     'org.apache.cassandra.db.marshal.UUIDType': 'uuid',
     // 'org.apache.cassandra.db.marshal.UTF8Type': 'varchar',
     'org.apache.cassandra.db.marshal.IntegerType': 'varint'
-};
-
-module.exports.decode = {
-
-};
-
-
-module.exports.encode = {
-
 };
