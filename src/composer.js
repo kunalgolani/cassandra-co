@@ -33,29 +33,40 @@ module.exports = {
 
 	where: (criteria, params) => {
 
-		let where = _(criteria).map((conditions, column) => {
-			if (typeof conditions !== 'object') {
-				params.push(conditions);
-				return column + '=?';
-			}
+		let where = _(criteria)
+						.chain()
+						.omit(v => v === undefined)
+						.map((conditions, column) => {
+							if (typeof conditions !== 'object') {
+								params.push(conditions);
+								return column + '=?';
+							}
 
-			return _(conditions).map((operand, operator) => {
-				switch(operator) {
-					case 'in':
-						params.concat(operand);
-						return column + ' in (' + operand.map(v => '?').join(', ') + ')';
-					case 'contains':
-						params.push(operand);
-						return column + ' contains ?';
-					case 'containsKey':
-						params.push(operand);
-						return column + ' contains key ?';
-					default:
-						params.push(operand);
-						return column + operator + '?';
-				}
-			}).join(' and ');
-		}).join (' and ');
+							return _(conditions)
+									.chain()
+									.omit(v => v === undefined)
+									.map((operand, operator) => {
+										switch (operator) {
+											case 'in':
+												params.concat(operand);
+												return column + ' in (' + operand.map(v => '?').join(', ') + ')';
+											case 'contains':
+												params.push(operand);
+												return column + ' contains ?';
+											case 'containsKey':
+												params.push(operand);
+												return column + ' contains key ?';
+											default:
+												params.push(operand);
+												return column + operator + '?';
+										}
+									})
+									.value()
+									.join(' and ');
+						})
+						.reject(_.isEmpty)
+						.value()
+						.join(' and ');
 
 		return where ? ' where ' + where : '';
 	},

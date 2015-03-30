@@ -155,7 +155,7 @@ module.exports = function *(table, db) {
 		_getData: function(deltaOnly) {
 			return _(this).chain()
 					.pick(_.keys(_columns))
-					.omit(v => typeof v === 'undefined')
+					.omit(v => v === undefined)
 					.delta(this._data)
 					.value();
 		},
