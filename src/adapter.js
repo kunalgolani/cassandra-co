@@ -13,8 +13,8 @@ var _ = require('underskore'),
 
 /**
  * @param {String} keyspace The keyspace to operate on
- * @param {Array} [hosts] hostnames of cassandra servers
- * @param {Object} {options} Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
+ * @param {Array} hosts hostnames of cassandra servers
+ * @param {Object} options [optional] Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
 function Adapter(keyspace, hosts, options) {
@@ -42,7 +42,7 @@ _.extend(Adapter.prototype, {
 	 */
 
 	execute: function* (query, params, queryOptions) {
-		return (yield promisify(this.client.execute.bind(this.client))(query, params, queryOptions)).rows;
+		return yield promisify(this.client.execute.bind(this.client))(query, params, queryOptions);
 	}
 
 

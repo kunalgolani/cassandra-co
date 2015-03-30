@@ -16,7 +16,7 @@ module.exports = function *(table, db) {
 	var _columns = {},
 		_keys = [];
 
-	(yield Adapter('system', db.hosts).execute('select * from schema_columns where columnfamily_name = ? and keyspace_name = ?;', [table, db.keyspace])).forEach(column => {
+	(yield Adapter('system', db.hosts).execute('select * from schema_columns where columnfamily_name = ? and keyspace_name = ?;', [table, db.keyspace])).rows.forEach(column => {
 		_columns[column.column_name] = types[column.validator];
 		['partition_key', 'clustering_key'].includes(column.type) && _keys.push(column.column_name);
 	});
@@ -56,9 +56,10 @@ module.exports = function *(table, db) {
 			limit: 100,
 			allowFiltering: true,
 			raw: not wrapped in a Helenus object
+		 * @param {Object} options [optional] Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 		 */
 
-		find: function *(criteria = {}, clauses = {}) {
+		find: function *(criteria = {}, clauses = {}, options = {}) {
 			var params = [];
 
 			var select = composer.select(clauses),
@@ -70,12 +71,12 @@ module.exports = function *(table, db) {
 
 			var query = select + from + where + order + limit + filtering + ';';
 
-			var raw = yield db.adapter.execute(query, params);
+			var raw = yield db.adapter.execute(query, params, options);
 
 			if (clauses.raw)
-				return raw;
+				return _.extend(raw.rows, raw);
 
-			return raw.map(row => new Row(row, true));
+			return _.extend(raw.rows.map(row => new Row(row, true)), raw);
 		}
 
 	});

@@ -8,8 +8,8 @@ var _ = require('underskore'),
 
 /**
  * @param {String} keyspace The keyspace to operate on
- * @param {Array} [hosts] hostnames of cassandra servers
- * @param {Object} {options} Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
+ * @param {Array} hosts hostnames of cassandra servers
+ * @param {Object} options Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
 function Helenus(keyspace, hosts, options) {
