@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "jshint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel src -d lib -l es6.destructuring,es6.parameters.default,es6.parameters.rest,es6.spread -s -w",
-    "prepublish": "npm run lint && babel src -d lib -l es6.destructuring,es6.parameters.default,es6.parameters.rest,es6.spread"
+    "watch": "babel src -d lib -s -w",
+    "prepublish": "npm run lint && babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "underskore": "~0.0.8"
   },
   "devDependencies": {
-    "babel": "~4.7.13",
+    "babel": "~5.0.9",
     "jshint": "~2.6.3"
   }
 }
