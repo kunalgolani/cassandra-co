@@ -1,3 +1,3 @@
 {
-	"whitelist": ["es6.destructuring", "es6.parameters.default", "es6.parameters.rest", "es6.spread"]
+	"whitelist": ["es6.destructuring", "es6.parameters.default", "es6.parameters.rest", "es6.spread", "es6.modules"]
 }
