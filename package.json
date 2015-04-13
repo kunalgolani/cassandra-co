@@ -33,7 +33,7 @@
     "underskore": "~0.0.8"
   },
   "devDependencies": {
-    "babel": "~5.0.9",
+    "babel": "~5.1.2",
     "jshint": "~2.6.3"
   }
 }
