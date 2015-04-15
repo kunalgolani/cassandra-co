@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "jshint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel src -d lib -s -w",
+    "watch": "babel src -d lib -w",
     "prepublish": "npm run lint && babel src -d lib"
   },
   "repository": {
