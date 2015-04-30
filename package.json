@@ -9,7 +9,7 @@
   "scripts": {
     "babel": "babel src -d lib",
     "lint": "jshint .",
-    "test": "npm run babel && mocha -r jscoverage -R spec --covout=html --coverage=90,75,60 test && open covreporter/index.html",
+    "test": "npm run babel && node --harmony --harmony_arrow_functions ./node_modules/.bin/istanbul cover _mocha && open ./coverage/lcov-report/index.html",
     "watch": "babel src -d lib -w",
     "prepublish": "npm run lint && npm test"
   },
@@ -36,7 +36,7 @@
   "devDependencies": {
     "babel": "~5.1.2",
     "chai": "~2.3.0",
-    "jscoverage": "~0.5.9",
+    "istanbul": "git://github.com/peterkc/es6-istanbul",
     "jshint": "~2.6.3",
     "mocha": "~2.2.4"
   }
