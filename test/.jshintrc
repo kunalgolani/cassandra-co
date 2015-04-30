@@ -1,5 +1,6 @@
 {
 	"node": true,
+	"expr": true,
 	"globals" : {
 		/* MOCHA */
 		"describe"   : false,
