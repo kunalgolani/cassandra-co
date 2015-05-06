@@ -165,7 +165,7 @@ module.exports = function *(table, db) {
 			_keys.forEach(key => {
 				if (!this.hasOwnProperty(key))
 					throw new Error('part of primary key ' + key + ' missing');
-			});
+			}, this);
 
 			// type validations inbuilt into cassandra-driver
 		}
