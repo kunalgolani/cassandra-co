@@ -17,6 +17,9 @@
     "type": "git",
     "url": "https://github.com/kunalgolani/helenus.git"
   },
+  "publishConfig": {
+    "registry": "http://registry.myntra.com:8000/"
+  },
   "keywords": [
     "cassandra",
     "client",
