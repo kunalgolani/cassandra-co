@@ -9,9 +9,10 @@
   "scripts": {
     "babel": "babel src -d lib",
     "lint": "jshint .",
-    "test": "npm run babel && node --harmony --harmony_arrow_functions ./node_modules/.bin/istanbul cover _mocha && open ./coverage/lcov-report/index.html",
+    "precommit": "npm run babel && npm run lint && node --harmony --harmony_arrow_functions ./node_modules/.bin/istanbul cover _mocha",
+    "test": "npm run precommit && open ./coverage/lcov-report/index.html",
     "watch": "babel src -d lib -w",
-    "prepublish": "npm run lint && npm test"
+    "prepublish": "npm run precommit"
   },
   "repository": {
     "type": "git",
