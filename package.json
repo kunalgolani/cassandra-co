@@ -33,12 +33,12 @@
   },
   "homepage": "https://github.com/kunalgolani/helenus",
   "dependencies": {
-    "cassandra-driver": "~2.0.1",
+    "cassandra-driver": "~2.1.0",
     "es6-promisify": "~1.1.1",
     "underskore": "~0.0.10"
   },
   "devDependencies": {
-    "babel": "~5.2.7",
+    "babel": "~5.4.3",
     "chai": "~2.3.0",
     "istanbul": "git://github.com/peterkc/es6-istanbul",
     "jshint": "~2.7.0",
