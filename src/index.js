@@ -19,6 +19,7 @@ function Helenus(keyspace, hosts, options) {
 	this.keyspace = keyspace;
 	this.hosts = hosts;
 	this.adapter = new Adapter(keyspace, hosts, options);
+	models[keyspace] = models[keyspace] || {};
 }
 
 _.extend(Helenus.prototype, {
@@ -26,9 +27,9 @@ _.extend(Helenus.prototype, {
 	 * @param {String} table The name of the table
 	 */
 	getModel: function *(table) {
-		if (!models[table])
-			models[table] = yield Model(table, this);
-		return models[table];
+		if (!models[this.keyspace][table])
+			models[this.keyspace][table] = yield Model(table, this);
+		return models[this.keyspace][table];
 	}
 });
 
