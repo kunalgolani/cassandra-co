@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _ = require('underskore'),
 	Adapter = require('./adapter'),
