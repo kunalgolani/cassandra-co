@@ -83,11 +83,11 @@ module.exports = function *(table, db) {
 
 	_.extend(Row.prototype, {
 
-		save: function *() {
+		save: function *(clauses = {}) {
 			// encode data
 			this._validate();
 
-			return yield this[this._exists ? '_update' : '_insert'](this._getData(this._exists));
+			return yield this[this._exists ? '_update' : '_insert'](this._getData(this._exists), clauses);
 		},
 
 		/**
@@ -108,7 +108,7 @@ module.exports = function *(table, db) {
 			var query = del + from + where;
 
 			var raw = yield db.adapter.execute(query, params);
-			console.log(raw); // check
+			// console.log(query, params, raw); // check
 
 			return this;
 		},
@@ -118,16 +118,17 @@ module.exports = function *(table, db) {
 			return composer.where(criteria, params);
 		},
 
-		_insert: function *(data) {
+		_insert: function *(data, clauses = {}) {
 			var params = [];
 
 			var insert = composer.insert(table),
-				values = composer.values(data, params);
+				values = composer.values(data, params),
+				using = composer.using(clauses, params);
 
-			var query = insert + values;
+			var query = insert + values + using;
 
 			var raw = yield db.adapter.execute(query, params);
-			console.log(raw); // check
+			// console.log(query, params, raw); // check
 
 			this._exists = true;
 			this._data = data;
@@ -135,17 +136,18 @@ module.exports = function *(table, db) {
 			return this;
 		},
 
-		_update: function *(data) {
+		_update: function *(data, clauses = {}) {
 			var params = [];
 
 			var update = composer.update(table),
+				using = composer.using(clauses, params),
 				set = composer.set(data, params),
 				where = this._where(params);
 
-			var query = update + set + where;
+			var query = update + using + set + where;
 
 			var raw = yield db.adapter.execute(query, params);
-			console.log(raw); // check
+			// console.log(query, params, raw); // check
 
 			this._data = data;
 

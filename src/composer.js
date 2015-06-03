@@ -6,11 +6,11 @@ var _ = require('underskore');
 // composes various parts of CQL statements, updating the params array along the way
 
 module.exports = {
-	select: clauses => 'select ' +
-							(clauses.count ?
+	select: ({count, distinct}) => 'select ' +
+							(count ?
 								'count(*)' :
-								clauses.distinct ?
-									'distinct ' + clauses.distinct.join(', ') :
+								distinct ?
+									'distinct ' + distinct.join(', ') :
 									'*'),
 
 	delete: columns => 'delete ' + columns.join(', '),
@@ -24,7 +24,7 @@ module.exports = {
 	values: (data, params) => {
 		let values = _.values(data);
 
-		params.push(... values);
+		params.push(...values);
 
 		return ' (' + _.keys(data).join(', ') + ') values (' + values.map(v => '?').join(', ') + ')';
 	},
@@ -71,12 +71,19 @@ module.exports = {
 		return where ? ' where ' + where : '';
 	},
 
-	order: clauses => clauses.orderBy ?
-						' order by ' + (clauses.orderBy.desc || clauses.orderBy.asc || clauses.orderBy) +
-							(clauses.orderBy.desc ? ' desc' : '') :
+	order: ({orderBy}) => orderBy ?
+						' order by ' + (orderBy.desc || orderBy.asc || orderBy) +
+							(orderBy.desc ? ' desc' : '') :
 						'',
 
-	limit: (clauses, params) => clauses.limit ? (params.push(clauses.limit) && ' limit ?') : '',
+	limit: ({limit}, params) => limit ? (params.push(limit) && ' limit ?') : '',
+
+	using: ({ttl, timestamp}, params) => {
+		let using = [];
+		ttl && params.push(ttl) && using.push('ttl ?');
+		timestamp && params.push(timestamp) && using.push('timestamp ?');
+		return using.length ? ' using ' + using.join(' and ') : '';
+	},
 
 	filtering: clauses => clauses.allowFiltering ? ' allow filtering' : ''
 };
