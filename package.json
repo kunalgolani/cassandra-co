@@ -38,7 +38,7 @@
     "underskore": "~0.0.10"
   },
   "devDependencies": {
-    "babel": "~5.4.3",
+    "babel": "~5.5.5",
     "chai": "~2.3.0",
     "istanbul": "git://github.com/peterkc/es6-istanbul",
     "jshint": "~2.7.0",
