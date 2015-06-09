@@ -52,7 +52,7 @@ module.exports = function *(table, db) {
 		 * @param {Object} clauses [optional] Additional clauses such as:
 			distinct: ['column1', 'column2'],
 			count: true,
-			orderBy: 'column_name' for default (ascending), or {Object} with order (asc|desc) as key and 'column_name' as value
+			orderBy: column_name for default (ascending), or {Object} with order (asc|desc) as key and column_name as value
 			limit: 100,
 			allowFiltering: true,
 			raw: not wrapped in a Helenus object
@@ -83,6 +83,9 @@ module.exports = function *(table, db) {
 
 	_.extend(Row.prototype, {
 
+		/**
+		 * @param {Object} clauses [optional] 'ttl' and / or 'timestamp' for the row being saved
+		 */
 		save: function *(clauses = {}) {
 			// encode data
 			this._validate();
