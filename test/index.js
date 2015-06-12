@@ -1,7 +1,7 @@
 'use strict';
 
 var should = require('chai').should(),
-	Helenus = require('../lib');
+	Helenus = require('../src');
 
 describe('dummy', function() {
 	it('should run', function() {
