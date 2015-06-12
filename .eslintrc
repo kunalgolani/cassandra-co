@@ -1,0 +1,47 @@
+parser: babel-eslint
+rules:
+    indent:
+        - 2
+        - tab
+    semi:
+        - 2
+        - always
+    quotes:
+        - 2
+        - single
+    camelcase:
+        - 2
+        - properties: never
+    strict:
+        - 2
+        - global
+    no-use-before-define:
+        - 2
+        - nofunc
+    linebreak-style:
+        - 2
+    object-shorthand:
+        - 1
+    generator-star-spacing:
+        - 1
+    space-unary-ops:
+        - 1
+    new-parens:
+        - 0
+    no-shadow:
+        - 0
+    no-unused-expressions:
+        - 0
+    curly:
+        - 0
+    new-cap:
+        - 0
+    eol-last:
+        - 0
+    no-mixed-requires:
+        - 0
+    no-underscore-dangle:
+        - 0
+env:
+    es6: true
+    node: true

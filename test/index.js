@@ -1,10 +1,11 @@
 'use strict';
 
-var should = require('chai').should(),
-	Helenus = require('../src');
+var Helenus = require('../src');
+
+require('chai').should();
 
 describe('dummy', function() {
 	it('should run', function() {
-		[].should.be.empty;
+		Helenus.types.should.not.be.empty;
 	});
 });

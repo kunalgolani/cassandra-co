@@ -26,7 +26,7 @@ module.exports = {
 
 		params.push(...values);
 
-		return ' (' + _.keys(data).join(', ') + ') values (' + values.map(v => '?').join(', ') + ')';
+		return ' (' + _.keys(data).join(', ') + ') values (' + values.map(() => '?').join(', ') + ')';
 	},
 
 	set: (data, params) => params.push(... _.values(data)) && ' set ' + _(data).map((value, key) => key + '=?').join(', '),
@@ -49,7 +49,7 @@ module.exports = {
 										switch (operator) {
 											case 'in':
 												params.concat(operand);
-												return column + ' in (' + operand.map(v => '?').join(', ') + ')';
+												return column + ' in (' + operand.map(() => '?').join(', ') + ')';
 											case 'contains':
 												params.push(operand);
 												return column + ' contains ?';

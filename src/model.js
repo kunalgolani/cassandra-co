@@ -37,8 +37,8 @@ module.exports = function *(table, db) {
 	_.extend(Row, {
 
 		meta: {
-			_columns: _columns,
-			_keys: _keys
+			_columns,
+			_keys
 		},
 
 		/**
@@ -59,7 +59,7 @@ module.exports = function *(table, db) {
 		 * @param {Object} options [optional] Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 		 */
 
-		find: function *(criteria = {}, clauses = {}, options = {}) {
+		*find(criteria = {}, clauses = {}, options = {}) {
 			var params = [];
 
 			var select = composer.select(clauses),
@@ -86,17 +86,17 @@ module.exports = function *(table, db) {
 		/**
 		 * @param {Object} clauses [optional] 'ttl' and / or 'timestamp' for the row being saved
 		 */
-		save: function *(clauses = {}) {
+		*save(clauses = {}) {
 			// encode data
 			this._validate();
 
-			return yield this[this._exists ? '_update' : '_insert'](this._getData(this._exists), clauses);
+			return yield this[this._exists ? '_update' : '_insert'](this._getData(), clauses);
 		},
 
 		/**
 		 * @param {Array} columns [optional] If provided, the values from the given columns will be deleted; otherwise, the row will be deleted
 		 */
-		delete: function *(columns) {
+		*delete(columns) {
 			if (_.difference(columns, _columns).length)
 				throw new Error('trying to delete columns that don\'t exist in the table: ' + columns.join(', '));
 
@@ -110,18 +110,17 @@ module.exports = function *(table, db) {
 
 			var query = del + from + where;
 
-			var raw = yield db.adapter.execute(query, params);
-			// console.log(query, params, raw); // check
+			yield db.adapter.execute(query, params);
 
 			return this;
 		},
 
-		_where: function(params) {
+		_where(params) {
 			var criteria = _.pick(this, _keys);
 			return composer.where(criteria, params);
 		},
 
-		_insert: function *(data, clauses = {}) {
+		*_insert(data, clauses = {}) {
 			var params = [];
 
 			var insert = composer.insert(table),
@@ -130,8 +129,7 @@ module.exports = function *(table, db) {
 
 			var query = insert + values + using;
 
-			var raw = yield db.adapter.execute(query, params);
-			// console.log(query, params, raw); // check
+			yield db.adapter.execute(query, params);
 
 			this._exists = true;
 			this._data = data;
@@ -139,7 +137,7 @@ module.exports = function *(table, db) {
 			return this;
 		},
 
-		_update: function *(data, clauses = {}) {
+		*_update(data, clauses = {}) {
 			var params = [];
 
 			var update = composer.update(table),
@@ -149,15 +147,14 @@ module.exports = function *(table, db) {
 
 			var query = update + using + set + where;
 
-			var raw = yield db.adapter.execute(query, params);
-			// console.log(query, params, raw); // check
+			yield db.adapter.execute(query, params);
 
 			this._data = data;
 
 			return this;
 		},
 
-		_getData: function(deltaOnly) {
+		_getData() {
 			return _(this).chain()
 					.pick(_.keys(_columns))
 					.omit(v => v === undefined)
@@ -165,7 +162,7 @@ module.exports = function *(table, db) {
 					.value();
 		},
 
-		_validate: function() {
+		_validate() {
 			// do keys exist?
 			_keys.forEach(key => {
 				if (!this.hasOwnProperty(key))

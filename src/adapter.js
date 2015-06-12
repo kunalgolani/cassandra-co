@@ -25,7 +25,7 @@ function Adapter(keyspace, hosts, options) {
 		return new Adapter(keyspace, hosts);
 
 	this.client = new driver.Client(_.extend({}, defaults, options, {
-		keyspace: keyspace,
+		keyspace,
 		contactPoints: hosts
 	}));
 
@@ -41,7 +41,7 @@ _.extend(Adapter.prototype, {
 	 * @param {Object} {queryOptions} Override default query options such as prepare
 	 */
 
-	execute: function* (query, params, queryOptions) {
+	*execute(query, params, queryOptions) {
 		return yield promisify(this.client.execute.bind(this.client))(query, params, queryOptions);
 	}
 

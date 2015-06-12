@@ -1,7 +1,0 @@
-{
-	"esnext": true,
-	"node": true,
-	"quotmark": false,
-	"newcap": false,
-	"expr": true
-}
