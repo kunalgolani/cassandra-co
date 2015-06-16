@@ -31,6 +31,10 @@ module.exports = {
 
 	set: (data, params) => params.push(... _.values(data)) && ' set ' + _(data).map((value, key) => key + '=?').join(', '),
 
+	increment: (column, by) => ' set ' + column + ' = ' + column + ' + ' + by,
+
+	decrement: (column, by) => ' set ' + column + ' = ' + column + ' - ' + by,
+
 	where: (criteria, params) => {
 
 		let where = _(criteria)

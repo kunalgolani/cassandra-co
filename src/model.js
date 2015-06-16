@@ -21,10 +21,10 @@ module.exports = function *(table, db) {
 		['partition_key', 'clustering_key'].includes(column.type) && _keys.push(column.column_name);
 	});
 
-	// extract:
-		// column names
-		// primary keys
-
+	/**
+	 * @param {Object} data Data to initialize row instance with, column names as keys
+	 * @param {Boolean} exists [optional] Decides whether to insert or update on save; pass true only if table has a counter column
+	 */
 	function Row(data, exists) {
 		if (!(this instanceof Row))
 			return new Row(data);
@@ -87,10 +87,48 @@ module.exports = function *(table, db) {
 		 * @param {Object} clauses [optional] 'ttl' and / or 'timestamp' for the row being saved
 		 */
 		*save(clauses = {}) {
-			// encode data
+			this._validate();
+			return yield this[this._exists ? '_update' : '_insert'](this._getData(), clauses);
+		},
+
+		/**
+		 * @param {String} column [optional] the specific counter column to increment, not required if there's only one such column
+		 * @param {Number} by [optional] the amount to increment the counter by, assumed 1 if not given
+		 */
+		*increment(column = _.findKey(_columns, type => type === 'counter'), by = 1) {
 			this._validate();
 
-			return yield this[this._exists ? '_update' : '_insert'](this._getData(), clauses);
+			var params = [];
+
+			var update = composer.update(table),
+				increment = composer.increment(column, by),
+				where = this._where(params);
+
+			var query = update + increment + where;
+
+			yield db.adapter.execute(query, params);
+
+			return this;
+		},
+
+		/**
+		 * @param {String} column [optional] the specific counter column to decrement, not required if there's only one such column
+		 * @param {Number} by [optional] the amount to decrement the counter by, assumed 1 if not given
+		 */
+		*decrement(column = _.findKey(_columns, type => type === 'counter'), by = 1) {
+			this._validate();
+
+			var params = [];
+
+			var update = composer.update(table),
+				decrement = composer.decrement(column, by),
+				where = this._where(params);
+
+			var query = update + decrement + where;
+
+			yield db.adapter.execute(query, params);
+
+			return this;
 		},
 
 		/**
