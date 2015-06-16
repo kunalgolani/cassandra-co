@@ -23,7 +23,6 @@ module.exports = function *(table, db) {
 
 	/**
 	 * @param {Object} data Data to initialize row instance with, column names as keys
-	 * @param {Boolean} exists [optional] Decides whether to insert or update on save; pass true only if table has a counter column
 	 */
 	function Row(data, exists) {
 		if (!(this instanceof Row))
