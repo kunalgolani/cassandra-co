@@ -42,7 +42,12 @@ _.extend(Adapter.prototype, {
 	 */
 
 	*execute(query, params, queryOptions) {
-		return yield promisify(this.client.execute.bind(this.client))(query, params, queryOptions);
+		try {
+			return yield promisify(this.client.execute.bind(this.client))(query, params, queryOptions);
+		} catch (e) {
+			console.error('Cassandra Client Error:\nQuery: ', query, '\nParams: ', params);
+			throw e;
+		}
 	}
 
 
