@@ -47,7 +47,7 @@ module.exports = function *(table, db) {
 				{Object} where:
 					operators as keys and operands as values for numerical comparison,
 					'in' as key and {Array} of values for in clause,
-					'contains' or 'containsKey' as key and the value or key to check for in the set, list or map as value
+					'contains' or 'containsKey' as key and the respective value or key to check for in the set, list or map as value
 		 * @param {Object} clauses [optional] Additional clauses such as:
 			distinct: ['column1', 'column2'],
 			count: true,

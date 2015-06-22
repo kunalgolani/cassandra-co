@@ -17,17 +17,19 @@ var _ = require('underskore'),
  * @param {Object} options [optional] Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
-function Adapter(keyspace, hosts, options) {
+function Adapter(keyspace, hosts, options = {}) {
 	if (adapters[keyspace])
 		return adapters[keyspace];
 
 	if (!(this instanceof Adapter))
 		return new Adapter(keyspace, hosts);
 
-	this.client = new driver.Client(_.extend({}, defaults, options, {
+	this.client = new driver.Client({
+		...defaults,
+		...options,
 		keyspace,
 		contactPoints: hosts
-	}));
+	});
 
 	adapters[keyspace] = this;
 }
