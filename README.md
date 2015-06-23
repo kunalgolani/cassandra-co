@@ -21,7 +21,7 @@ A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandr
 
 ## Usage
 ### Promises and yields
-All asynchronous operations return a `Promise`.  Using [`co`](https://github.com/tj/co) or [`koa`](koajs.com), these promises can also be `yield`ed. This documentation uses `yields` instead of `.then()` on the `Promise`s.
+All asynchronous operations return a `Promise`.  Using [`co`](https://github.com/tj/co) or [`koa`](koajs.com), these promises can also be `yield`ed. This documentation uses `yield` instead of `.then()` on the `Promise`s.
 
 __Example__
 ```js
