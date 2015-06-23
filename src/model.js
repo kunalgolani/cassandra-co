@@ -91,10 +91,10 @@ module.exports = function *(table, db) {
 		},
 
 		/**
-		 * @param {String} column [optional] the specific counter column to increment, not required if there's only one such column
 		 * @param {Number} by [optional] the amount to increment the counter by, assumed 1 if not given
+		 * @param {String} column [optional] the specific counter column to increment, not required if there's only one such column
 		 */
-		*increment(column = _.findKey(_columns, type => type === 'counter'), by = 1) {
+		*increment(by = 1, column = _.findKey(_columns, type => type === 'counter')) {
 			this._validate();
 
 			var params = [];

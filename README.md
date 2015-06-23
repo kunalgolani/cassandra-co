@@ -14,6 +14,21 @@ A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandr
 ---
 
 ## Usage
+### Promises and yields
+All asynchronous operations return a `Promise`.  Using [`co`](https://github.com/tj/co) or [`koa`](koajs.com), these promises can also be `yield`ed. This documentation uses `yields` instead of `.then()` on the `Promise`s.
+
+__Example__
+```js
+// Promise
+asyncOperation().then(function(result) {
+    // use the result here
+});
+
+// yield
+var result = yield asyncOperation();
+// use the result here
+```
+
 ### Instantiation
 __Parameters__
 - {String} `keyspace`: The keyspace to operate on
@@ -31,7 +46,7 @@ __Parameters__
 
 __Example__ Initialize the model for `examples` table
 ```js
-var Examples = db.getModel('examples');
+var Examples = yield db.getModel('examples');
 ```
 
 ### SELECT
@@ -54,7 +69,7 @@ __Parameters__
 
 __Example__ Find at max 5 people named John Doe, older than 35, sorted older to younger
 ```js
-var johns = Examples.find({
+var johns = yield Examples.find({
     name: 'John Doe',
     age: {
         '>': 35
@@ -79,7 +94,7 @@ var johnny = new Examples({
     age: 21
 });
 
-johnny.save({
+yield johnny.save({
     ttl: 300
 });
 ```
@@ -91,7 +106,22 @@ __Parameters__
 __Example__ Change the name of the oldest person named 'John Doe' in `examples` to `Mr Grampa`
 ```js
 johns[0].name = 'Mr Grampa';
-johns[0].save();
+yield johns[0].save();
+```
+
+### Counters
+__Parameters__
+- {String} column [optional]: the specific counter column to increment, not required if there's only one such column
+- {Number} by [optional]: the amount to increment the counter by, assumed 1 if not given
+
+__Example__ Increment the count for key `example1` whether or not it exists, and decrement the count for key `example2` by 2
+```js
+var Counter = yield db.getModel('counter'),
+    counters = new Counter({key: 'example1'});
+yield counter.increment();
+
+var counters = Counter.find({key: 'example2'});
+yield counters[0].decrement(2);
 ```
 
 ### DELETE
@@ -100,10 +130,8 @@ __Parameters__
 
 __Example__ Delete the age of Mr Grampa
 ```js
-johns[0].delete('age');
+yield johns[0].delete('age');
 ```
-
-<!-- TODO: increment / decrement -->
 
 ---
 
