@@ -13,6 +13,12 @@ A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandr
 
 ---
 
+## Motivation
+- apollo-cassandra requires you to define the schema in code. This means that any time the DB schema is altered, the code also needs to be updated. The code needs to be aware of the schema in the DB even if it's not otherwise using all columns of a table.
+- When I looked into the internals of apollo-cassandra before starting this project, I couldn't find evidence of it using [prepared statements](http://docs.datastax.com/en/developer/nodejs-driver/2.1/nodejs-driver/reference/threeSimpleRules.html?scroll=three-simple-rules__prepared-statement-section). With Cassandra, if you're executing the same CQL query with different paramters repeatedly, preparing it makes its execution faster.
+
+---
+
 ## Usage
 ### Promises and yields
 All asynchronous operations return a `Promise`.  Using [`co`](https://github.com/tj/co) or [`koa`](koajs.com), these promises can also be `yield`ed. This documentation uses `yields` instead of `.then()` on the `Promise`s.
