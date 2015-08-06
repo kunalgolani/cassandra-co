@@ -1,6 +1,6 @@
 {
   "name": "helenus",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A very basic ORM and Client for Cassandra, inspired by 3logic's apollo-cassandra",
   "main": "lib/index.js",
   "directories": {
