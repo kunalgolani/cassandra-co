@@ -38,11 +38,11 @@
     "underskore": "~0.0.10"
   },
   "devDependencies": {
-    "babel": "~5.6.1",
-    "babel-eslint": "~3.1.15",
+    "babel": "~5.8.1",
+    "babel-eslint": "~4.0.5",
     "babel-istanbul-harmony": "~0.3.13",
-    "chai": "~3.0.0",
-    "eslint": "~0.23.0",
+    "chai": "~3.2.0",
+    "eslint": "~0.24.0",
     "mocha": "~2.2.4"
   }
 }
