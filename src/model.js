@@ -1,10 +1,8 @@
 'use strict';
 
 var _ = require('underskore'),
-	Adapter = require('./adapter'),
-	composer = require('./composer'),
-	types = require('./types');
-
+	types = require('cassandra-driver').types.dataTypes,
+	composer = require('./composer');
 
 /**
  * @param {String} table The name of the table
@@ -13,13 +11,9 @@ var _ = require('underskore'),
 
 module.exports = function *(table, db) {
 
-	var _columns = {},
-		_keys = [];
-
-	(yield Adapter('system', db.hosts).execute('select * from schema_columns where columnfamily_name = ? and keyspace_name = ?;', [table, db.keyspace])).rows.forEach(column => {
-		_columns[column.column_name] = types[column.validator];
-		['partition_key', 'clustering_key'].includes(column.type) && _keys.push(column.column_name);
-	});
+	var metadata = yield db._getTable(table),
+		_columns = _.mapObject(metadata.columnsByName, ({type}) => _.findKey(types, t => type.code === t)),
+		_keys = _.pluck(metadata.partitionKeys.concat(metadata.clusteringKeys), 'name');
 
 	/**
 	 * @param {Object} data Data to initialize row instance with, column names as keys
@@ -114,7 +108,7 @@ module.exports = function *(table, db) {
 		 * @param {String} column [optional] the specific counter column to decrement, not required if there's only one such column
 		 * @param {Number} by [optional] the amount to decrement the counter by, assumed 1 if not given
 		 */
-		*decrement(column = _.findKey(_columns, type => type === 'counter'), by = 1) {
+		*decrement(by = 1, column = _.findKey(_columns, type => type === 'counter')) {
 			this._validate();
 
 			var params = [];
@@ -153,7 +147,14 @@ module.exports = function *(table, db) {
 		},
 
 		_where(params) {
-			var criteria = _.pick(this, _keys);
+			var criteria = _.chain(this)
+							.pick(_keys)
+							.mapObject((val, key) => ['bigint', 'counter', 'decimal', 'inet', 'timeuuid', 'uuid', 'varint'].includes(_columns[key]) ?
+								val.toString() :
+								_columns[key] === 'timestamp' ?
+									+val :
+									val)
+							.value();
 			return composer.where(criteria, params);
 		},
 

@@ -31,6 +31,8 @@ function Adapter(keyspace, hosts, options = {}) {
 		contactPoints: hosts
 	});
 
+	// this.client.on('log', (level, className, message) => console.log('Cassandra %s: %s', level, message));
+
 	adapters[keyspace] = this;
 }
 
