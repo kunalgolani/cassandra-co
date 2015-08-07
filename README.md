@@ -1,4 +1,4 @@
-# Helenus
+# cassandra-co
 
 [![GitHub version][github-img]][github-url]
 [![Deps][deps-img]][deps-url]
@@ -41,18 +41,18 @@ __Parameters__
 - {Array} `hosts`: Hostnames of cassandra servers
 - {Object} `options` [optional]: Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions.
 
-__Example__ Initialize Helenus with `example` keyspace and local Cassandra
+__Example__ Initialize cassandra-co with `game_of_thrones` keyspace and local Cassandra
 ```js
-var db = require('Helenus')('example', ['127.0.0.1']);
+var db = require('cassandra-co')('game_of_thrones', ['127.0.0.1']);
 ```
 
 ### Model
 __Parameters__
 - {String} `table`: The name of the table
 
-__Example__ Initialize the model for `examples` table
+__Example__ Initialize the model for `characters` table
 ```js
-var Examples = yield db.getModel('examples');
+var Characters = yield db.getModel('characters');
 ```
 
 ### SELECT
@@ -70,20 +70,20 @@ __Parameters__
     `orderBy: column_name` for default (ascending), or `{Object}` with order (`asc|desc`) as key and `column_name` as value
     `limit: 100`,
     `allowFiltering: true`,
-    `raw`: not wrapped in a `Helenus` object
+    `raw`: not wrapped in a `cassandra-co` object
 - {Object} `options` [optional]: Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 
-__Example__ Find at max 5 people named John Doe, older than 35, sorted older to younger
+__Example__ Find at max 5 Starks, born before Robert's Rebellion, sorted younger to older
 ```js
-var johns = yield Examples.find({
-    name: 'John Doe',
-    age: {
-        '>': 35
+var starks = yield characters.find({
+    house: 'Stark',
+    born: {
+        '<': 282
     }
 }, {
     limit: 5,
     orderBy: {
-        desc: 'age'
+        desc: 'born'
     }
 });
 ```
@@ -93,15 +93,16 @@ __Parameters__
 - {Object} `data`: Data to initialize row instance with, column names as keys
 - {Object} `clauses` [optional]: `ttl` and / or `timestamp` for the row being saved
 
-__Example__ Add a new row to `examples` with a ttl of 5 minutes
+__Example__ Add a new row to `characters` with a ttl of 14 years
 ```js
-var johnny = new Examples({
-    name: 'Johnny',
-    age: 21
+var joff = new Characters({
+    name: 'Joffrey',
+    house: 'Baratheon'
+    born: 286
 });
 
-yield johnny.save({
-    ttl: 300
+yield joff.save({
+    ttl: 60 * 60 * 24 * 365 * 14
 });
 ```
 
@@ -109,10 +110,10 @@ yield johnny.save({
 __Parameters__
 - {Object} `clauses` [optional]: `ttl` and / or `timestamp` for the row being saved
 
-__Example__ Change the name of the oldest person named 'John Doe' in `examples` to `Mr Grampa`
+__Example__ Change the name of the youngest Stark born before Robert's Rebellion to `Ben`
 ```js
-johns[0].name = 'Mr Grampa';
-yield johns[0].save();
+starks[0].name = 'Ben';
+yield starks[0].save();
 ```
 
 ### Counters
@@ -120,30 +121,30 @@ __Parameters__
 - {String} column [optional]: the specific counter column to increment, not required if there's only one such column
 - {Number} by [optional]: the amount to increment the counter by, assumed 1 if not given
 
-__Example__ Increment the count for key `example1` whether or not it exists, and decrement the count for key `example2` by 2
+__Example__ Increment the kills for `Daenerys Targaryen` whether or not the row exists, and decrement the kills for `Jaime Lannister` by 2
 ```js
-var Counter = yield db.getModel('counter'),
-    counters = new Counter({key: 'example1'});
-yield counter.increment();
+var Kills = yield db.getModel('kills'),
+    danysKills = new Kills({character: 'Daenerys Targaryen'});
+yield danysKills.increment();
 
-var counters = Counter.find({key: 'example2'});
-yield counters[0].decrement(2);
+var kingslayersKillses = yield Kills.find({character: 'Jaime Lannister'});
+yield kingslayersKillses[0].decrement(2);
 ```
 
 ### DELETE
 __Parameters__
 - {Array} `columns` [optional]: If provided, the values from the given columns will be deleted; otherwise, the row will be deleted
 
-__Example__ Delete the age of Mr Grampa
+__Example__ Delete Ben's birth year
 ```js
-yield johns[0].delete('age');
+yield starks[0].delete('born');
 ```
 
 ---
 
 ## Caveats
 - Only prepared statements are supported. All operations will be executed as prepared statements.
-- Helenus needs the following ES6/7 features.
+- cassandra-co needs the following ES6/7 features.
     + [Generator Functions](http://davidwalsh.name/es6-generators)
     + [Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
     + [`Array.prototype.includes`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
@@ -155,12 +156,12 @@ yield johns[0].delete('age');
 
 ---
 
-[github-img]: https://badge.fury.io/gh/kunalgolani%2Fhelenus.svg
-[stars-img]: https://img.shields.io/github/stars/kunalgolani/helenus.svg
-[forks-img]: https://img.shields.io/github/forks/kunalgolani/helenus.svg
-[issues-img]: https://img.shields.io/github/issues-raw/kunalgolani/helenus.svg
-[github-url]: https://github.com/kunalgolani/helenus
-[deps-img]: https://img.shields.io/david/kunalgolani/helenus.svg
-[devDeps-img]: https://img.shields.io/david/dev/kunalgolani/helenus.svg
-[peerDeps-img]: https://img.shields.io/david/peer/kunalgolani/helenus.svg
-[deps-url]: https://github.com/kunalgolani/helenus/blob/master/package.json
+[github-img]: https://badge.fury.io/gh/kunalgolani%2Fcassandra-co.svg
+[stars-img]: https://img.shields.io/github/stars/kunalgolani/cassandra-co.svg
+[forks-img]: https://img.shields.io/github/forks/kunalgolani/cassandra-co.svg
+[issues-img]: https://img.shields.io/github/issues-raw/kunalgolani/cassandra-co.svg
+[github-url]: https://github.com/kunalgolani/cassandra-co
+[deps-img]: https://img.shields.io/david/kunalgolani/cassandra-co.svg
+[devDeps-img]: https://img.shields.io/david/dev/kunalgolani/cassandra-co.svg
+[peerDeps-img]: https://img.shields.io/david/peer/kunalgolani/cassandra-co.svg
+[deps-url]: https://github.com/kunalgolani/cassandra-co/blob/master/package.json

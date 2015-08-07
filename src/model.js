@@ -6,7 +6,7 @@ var _ = require('underskore'),
 
 /**
  * @param {String} table The name of the table
- * @param {Helenus} db The instance of Helenus used to create a model
+ * @param {CassandraCo} db The instance of CassandraCo used to create a model
  */
 
 module.exports = function *(table, db) {
@@ -48,7 +48,7 @@ module.exports = function *(table, db) {
 			orderBy: column_name for default (ascending), or {Object} with order (asc|desc) as key and column_name as value
 			limit: 100,
 			allowFiltering: true,
-			raw: not wrapped in a Helenus object
+			raw: not wrapped in a CassandraCo object
 		 * @param {Object} options [optional] Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 		 */
 

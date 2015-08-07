@@ -13,9 +13,9 @@ var _ = require('underskore'),
  * @param {Object} options [optional] Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
-function Helenus(keyspace, hosts, options) {
-	if (!(this instanceof Helenus))
-		return new Helenus(keyspace, hosts);
+function CassandraCo(keyspace, hosts, options) {
+	if (!(this instanceof CassandraCo))
+		return new CassandraCo(keyspace, hosts);
 
 	this.keyspace = keyspace;
 	this.hosts = hosts;
@@ -23,7 +23,7 @@ function Helenus(keyspace, hosts, options) {
 	models[keyspace] = models[keyspace] || {};
 }
 
-_.extend(Helenus.prototype, {
+_.extend(CassandraCo.prototype, {
 	/**
 	 * @param {String} table The name of the table
 	 */
@@ -39,6 +39,6 @@ _.extend(Helenus.prototype, {
 	}
 });
 
-Helenus.types = require('cassandra-driver').types;
+CassandraCo.types = require('cassandra-driver').types;
 
-module.exports = Helenus;
+module.exports = CassandraCo;
