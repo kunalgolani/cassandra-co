@@ -75,7 +75,7 @@ __Parameters__
 
 __Example__ Find at max 5 Starks, born before Robert's Rebellion, sorted younger to older
 ```js
-var starks = yield characters.find({
+var starks = yield Characters.find({
     house: 'Stark',
     born: {
         '<': 282
