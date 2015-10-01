@@ -31,7 +31,7 @@
   "homepage": "https://github.com/kunalgolani/cassandra-co",
   "dependencies": {
     "cassandra-driver": "~2.2.0",
-    "es6-promisify": "~2.0.0",
+    "es6-promisify": "~3.0.0",
     "underskore": "~0.0.10"
   },
   "devDependencies": {
