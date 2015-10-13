@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "babel": "babel src -d lib",
+    "babel": "rm -rf lib/ && babel src -d lib",
     "lint": "eslint .",
     "precommit": "npm run babel && npm run lint && node --harmony --harmony_arrow_functions ./node_modules/.bin/istanbul cover _mocha",
     "test": "npm run precommit && open ./coverage/lcov-report/index.html",
