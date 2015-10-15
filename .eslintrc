@@ -21,6 +21,8 @@ rules:
         - nofunc
     linebreak-style:
         - 2
+    no-unused-vars:
+        - 2
     object-shorthand:
         - 1
     generator-star-spacing:
