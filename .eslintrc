@@ -19,6 +19,11 @@ rules:
     no-use-before-define:
         - 2
         - nofunc
+    no-unused-expressions:
+        - 2
+        -
+            allowTernary: true
+            allowShortCircuit: true
     linebreak-style:
         - 2
     no-unused-vars:
@@ -32,8 +37,6 @@ rules:
     new-parens:
         - 0
     no-shadow:
-        - 0
-    no-unused-expressions:
         - 0
     curly:
         - 0
