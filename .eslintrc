@@ -1,4 +1,5 @@
 parser: babel-eslint
+extends: "eslint:recommended"
 rules:
     indent:
         - 2
@@ -26,27 +27,13 @@ rules:
             allowShortCircuit: true
     linebreak-style:
         - 2
-    no-unused-vars:
-        - 2
     object-shorthand:
         - 1
     generator-star-spacing:
         - 1
     space-unary-ops:
         - 1
-    new-parens:
-        - 0
-    no-shadow:
-        - 0
-    curly:
-        - 0
-    new-cap:
-        - 0
-    eol-last:
-        - 0
-    no-mixed-requires:
-        - 0
-    no-underscore-dangle:
+    no-console:
         - 0
 env:
     es6: true
