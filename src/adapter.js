@@ -3,12 +3,13 @@
 var _ = require('underskore'),
 	driver = require('cassandra-driver'),
 	promisify = require('es6-promisify'),
-	defaults = {
-		queryOptions: {
-			prepare: true
-		}
-	},
 	adapters = {};
+
+const DEFAULTS = {
+	queryOptions: {
+		prepare: true
+	}
+};
 
 
 /**
@@ -25,7 +26,7 @@ function Adapter(keyspace, hosts, options = {}) {
 		return new Adapter(keyspace, hosts);
 
 	this.client = new driver.Client({
-		...defaults,
+		...DEFAULTS,
 		...options,
 		keyspace,
 		contactPoints: hosts

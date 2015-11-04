@@ -33,8 +33,12 @@ _.extend(CassandraCo.prototype, {
 		return models[this.keyspace][table];
 	},
 
-	*_getTable(table) {
+	*connect() {
 		yield promisify(this.adapter.client.connect.bind(this.adapter.client))();
+	},
+
+	*_getTable(table) {
+		yield this.connect();
 		return yield promisify(this.adapter.client.metadata.getTable.bind(this.adapter.client.metadata))(this.keyspace, table);
 	}
 });
