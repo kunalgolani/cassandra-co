@@ -52,7 +52,7 @@ module.exports = {
 									.map((operand, operator) => {
 										switch (operator) {
 											case 'in':
-												params.concat(operand);
+												params.push(...operand);
 												return column + ' in (' + Array(operand.length).fill('?').join(', ') + ')';
 											case 'contains':
 												params.push(operand);
