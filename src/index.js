@@ -4,6 +4,7 @@ var _ = require('underskore'),
 	promisify = require('es6-promisify'),
 	Adapter = require('./adapter'),
 	Model = require('./model'),
+	LRU = require('lru-cache'),
 	models = {};
 
 
@@ -21,6 +22,7 @@ function CassandraCo(keyspace, hosts, options) {
 	this.hosts = hosts;
 	this.adapter = new Adapter(keyspace, hosts, options);
 	models[keyspace] = models[keyspace] || {};
+	if(options && options.cache) this.cache = new LRU(options.cache);
 }
 
 _.extend(CassandraCo.prototype, {

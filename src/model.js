@@ -64,7 +64,16 @@ module.exports = function *(table, db) {
 
 			var query = select + from + where + order + limit + filtering + ';';
 
-			var raw = yield db.adapter.execute(query, params, options);
+			var raw
+				, cache = db.cache
+				, cacheable = cache && (options.cache || false),
+				, cacheKey = query + params;
+			if(cacheable && cache.get(cacheKey)) {
+				raw = cache.get(cacheKey); 
+			} else {
+				raw = yield db.adapter.execute(query, params, options);
+				cacheable && cache.set(cacheKey, raw);
+			}
 
 			if (clauses.raw)
 				return _.extend(raw.rows, raw);
