@@ -8,13 +8,14 @@ var _ = require('underskore'),
 	models = {};
 
 
+
 /**
  * @param {String} keyspace The keyspace to operate on
  * @param {Array} hosts Hostnames of cassandra servers
  * @param {Object} options [optional] Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
-function CassandraCo(keyspace, hosts, options) {
+function CassandraCo(keyspace, hosts, {cache, ...options} = {}) {
 	if (!(this instanceof CassandraCo))
 		return new CassandraCo(keyspace, hosts);
 
@@ -22,7 +23,9 @@ function CassandraCo(keyspace, hosts, options) {
 	this.hosts = hosts;
 	this.adapter = new Adapter(keyspace, hosts, options);
 	models[keyspace] = models[keyspace] || {};
-	if(options && options.cache) this.cache = new LRU(options.cache);
+
+	if (cache)
+		this.cache = new LRU(cache);
 }
 
 _.extend(CassandraCo.prototype, {
