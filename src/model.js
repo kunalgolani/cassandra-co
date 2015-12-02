@@ -67,8 +67,10 @@ module.exports = function *(table, db) {
 			var key = query + ' : ' + params,
 				raw;
 
-			if (cache && db.cache && db.cache.has(key))
+			if (cache && db.cache && db.cache.has(key)) {
 				raw = db.cache.get(key);
+				raw._cached = true;
+			}
 			else {
 				raw = yield db.adapter.execute(query, params, options);
 				cache && db.cache && db.cache.set(key, raw, maxAge);

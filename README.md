@@ -57,20 +57,19 @@ var Characters = yield db.getModel('characters');
 
 ### SELECT
 __Parameters__
-- {Object} `criteria` [optional]: The where clause criteria, including:
-    column names as keys, and values as:
-        value for exact match, or
-        {Object} where:
-            operators as keys and operands as values for numerical comparison,
-            `in` as key and `{Array}` of values for `in` clause,
-            `contains` or `containsKey` as key and the respective value or key to check for in the set, list or map as value
+- {Object} `criteria` [optional]: The where clause criteria, with column names as keys, and values as:
+    + value for exact match, or
+    + {Object} where:
+        * operators as keys and operands as values for numerical comparison
+        * `in` as key and `{Array}` of values for `in` clause
+        * `contains` or `containsKey` as key and the respective value or key to check for in the set, list or map as value
 - {Object} `clauses` [optional]: Additional clauses such as:
-    `distinct: ['column1', 'column2']`,
-    `count: true`,
-    `orderBy: column_name` for default (ascending), or `{Object}` with order (`asc|desc`) as key and `column_name` as value
-    `limit: 100`,
-    `allowFiltering: true`,
-    `raw`: not wrapped in a `cassandra-co` object
+    + `distinct: ['column1', 'column2']`
+    + `count: true`
+    + `orderBy: column_name` for default (ascending), or `{Object}` with order (`asc|desc`) as key and `column_name` as value
+    + `limit: 100`
+    + `allowFiltering: true`
+    + `raw`: not wrapped in a `cassandra-co` object
 - {Object} `options` [optional]: Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 
 __Example__ Find at max 5 Starks, born before Robert's Rebellion, sorted younger to older
