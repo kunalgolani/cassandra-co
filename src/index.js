@@ -17,15 +17,15 @@ var _ = require('underskore'),
 
 function CassandraCo(keyspace, hosts, {cache, ...options} = {}) {
 	if (!(this instanceof CassandraCo))
-		return new CassandraCo(keyspace, hosts);
+		return new CassandraCo(keyspace, hosts, {cache, ...options});
 
 	this.keyspace = keyspace;
 	this.hosts = hosts;
 	this.adapter = new Adapter(keyspace, hosts, options);
-	models[keyspace] = models[keyspace] || {};
-
 	if (cache)
 		this.cache = new LRU(cache);
+
+	models[keyspace] = models[keyspace] || {};
 }
 
 _.extend(CassandraCo.prototype, {
