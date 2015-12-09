@@ -52,7 +52,7 @@ module.exports = function *(table, db) {
 		 * @param {Object} options [optional] Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 		 */
 
-		*find(criteria = {}, clauses = {}, {cache, maxAge, ...options} = {}) {
+		*find(criteria = {}, clauses = {}, {cache, maxAge, stats = {}, ...options} = {}) {
 			var params = [];
 
 			var select = composer.select(clauses),
@@ -70,10 +70,12 @@ module.exports = function *(table, db) {
 			if (cache && db.cache && db.cache.has(key)) {
 				raw = db.cache.get(key);
 				raw._cached = true;
+				stats.hit && stats.hit(); 
 			}
 			else {
 				raw = yield db.adapter.execute(query, params, options);
 				cache && db.cache && db.cache.set(key, raw, maxAge);
+				stats.miss && stats.miss();
 			}
 
 			if (clauses.raw)
