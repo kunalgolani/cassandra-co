@@ -70,12 +70,13 @@ module.exports = function *(table, db) {
 			if (cache && db.cache && db.cache.has(key)) {
 				raw = db.cache.get(key);
 				raw._cached = true;
-				stats.hit && stats.hit(); 
-			}
-			else {
+				stats.hit && stats.hit();
+			} else {
 				raw = yield db.adapter.execute(query, params, options);
-				cache && db.cache && db.cache.set(key, raw, maxAge);
-				stats.miss && stats.miss();
+				if (cache && db.cache) {
+					db.cache.set(key, raw, maxAge);
+					stats.miss && stats.miss();
+				}
 			}
 
 			if (clauses.raw)
