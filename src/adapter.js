@@ -19,8 +19,8 @@ const DEFAULTS = {
  */
 
 function Adapter(keyspace, hosts, options = {}) {
-	if (adapters[keyspace])
-		return adapters[keyspace];
+	if (adapters[keyspace][hosts])
+		return adapters[keyspace][hosts];
 
 	if (!(this instanceof Adapter))
 		return new Adapter(keyspace, hosts);
@@ -34,7 +34,7 @@ function Adapter(keyspace, hosts, options = {}) {
 
 	// this.client.on('log', (level, className, message) => console.log('Cassandra %s: %s', level, message));
 
-	adapters[keyspace] = this;
+	adapters[keyspace][hosts] = this;
 }
 
 
