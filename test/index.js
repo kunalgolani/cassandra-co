@@ -4,8 +4,8 @@ var CassandraCo = require('../src');
 
 require('chai').should();
 
-describe('dummy', function() {
-	it('should run', function() {
+describe('dummy', () => {
+	it('should run', () => {
 		CassandraCo.types.should.not.be.empty;
 	});
 });

@@ -1,19 +1,16 @@
-parser: babel-eslint
+parserOptions:
+    ecmaVersion: 6
+    ecmaFeatures:
+        impliedStrict: false
+        experimentalObjectRestSpread: true
 extends: "eslint:recommended"
 rules:
-    indent:
-        - 2
-        - tab
-        - SwitchCase: 1
     semi:
         - 2
         - always
     quotes:
         - 2
         - single
-    camelcase:
-        - 2
-        - properties: never
     strict:
         - 2
         - global
@@ -25,14 +22,106 @@ rules:
         -
             allowTernary: true
             allowShortCircuit: true
+    no-unneeded-ternary:
+        - 2
+        -
+            defaultAssignment: false
+    camelcase:
+        - 2
+        - properties: never
+    indent:
+        - 2
+        - tab
+        - SwitchCase: 1
+    one-var-declaration-per-line:
+        - 2
+        - initializations
+    space-before-function-paren:
+        - 2
+        - never
+    arrow-parens:
+        - 2
+        - "as-needed"
+    arrow-body-style:
+        - 2
+    arrow-spacing:
+        - 2
+    prefer-arrow-callback:
+        - 2
     linebreak-style:
         - 2
+    no-loop-func:
+        - 2
+    array-callback-return:
+        - 2
+    keyword-spacing:
+        - 2
+    no-empty-function:
+        - 2
+    no-self-assign:
+        - 2
+    no-unmodified-loop-condition:
+        - 2
+    no-lonely-if:
+        - 2
+    no-whitespace-before-property:
+        - 2
+    space-before-blocks:
+        - 2
+    spaced-comment:
+        - 2
+    space-in-parens:
+        - 2
+    block-spacing:
+        - 2
+    computed-property-spacing:
+        - 2
+    space-infix-ops:
+        - 2
+    no-spaced-func:
+        - 2
+    comma-spacing:
+        - 2
+    comma-style:
+        - 2
+    dot-notation:
+        - 2
+    consistent-this:
+        - 2
+    no-constant-condition:
+        - 1
+    quote-props:
+        - 1
+        - "as-needed"
+    object-curly-spacing:
+        - 1
+        - always
+    array-bracket-spacing:
+        - 1
+        - always
+    brace-style:
+        - 1
+    operator-assignment:
+        - 1
     object-shorthand:
+        - 1
+    require-yield:
         - 1
     generator-star-spacing:
         - 1
     space-unary-ops:
         - 1
+    key-spacing:
+        - 1
+    no-multi-spaces:
+        - 1
+    no-trailing-spaces:
+        - 1
+    curly:
+        - 0
+        - "multi-or-nest"
+    no-extra-parens:
+        - 0
     no-console:
         - 0
 env:

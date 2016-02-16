@@ -12,7 +12,7 @@ var _ = require('underskore'),
 module.exports = function *(table, db) {
 
 	var metadata = yield db._getTable(table),
-		_columns = _.mapObject(metadata.columnsByName, ({type}) => _.findKey(types, t => type.code === t)),
+		_columns = _.mapObject(metadata.columnsByName, ({ type }) => _.findKey(types, t => type.code === t)),
 		_keys = _.pluck(metadata.partitionKeys.concat(metadata.clusteringKeys), 'name');
 
 	/**
@@ -52,7 +52,7 @@ module.exports = function *(table, db) {
 		 * @param {Object} options [optional] Any other query options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#QueryOptions
 		 */
 
-		*find(criteria = {}, clauses = {}, {cache, maxAge, stats = {}, ...options} = {}) {
+		*find(criteria = {}, clauses = {}, { cache, maxAge, stats = {}, ...options } = {}) {
 			var params = [];
 
 			var select = composer.select(clauses),
@@ -162,7 +162,7 @@ module.exports = function *(table, db) {
 		_where(params) {
 			var criteria = _.chain(this)
 							.pick(_keys)
-							.mapObject((val, key) => ['bigint', 'counter', 'decimal', 'inet', 'timeuuid', 'uuid', 'varint'].includes(_columns[key]) ?
+							.mapObject((val, key) => [ 'bigint', 'counter', 'decimal', 'inet', 'timeuuid', 'uuid', 'varint' ].includes(_columns[key]) ?
 								val.toString() :
 								_columns[key] === 'timestamp' ?
 									+val :

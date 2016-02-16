@@ -6,7 +6,7 @@ var _ = require('underskore');
 // composes various parts of CQL statements, updating the params array along the way
 
 module.exports = {
-	select: ({count, distinct}) => 'select ' +
+	select: ({ count, distinct }) => 'select ' +
 							(count ?
 								'count(*)' :
 								distinct ?
@@ -75,14 +75,14 @@ module.exports = {
 		return where ? ' where ' + where : '';
 	},
 
-	order: ({orderBy}) => orderBy ?
+	order: ({ orderBy }) => orderBy ?
 						' order by ' + (orderBy.desc || orderBy.asc || orderBy) +
 							(orderBy.desc ? ' desc' : '') :
 						'',
 
-	limit: ({limit}, params) => limit ? (params.push(limit) && ' limit ?') : '',
+	limit: ({ limit }, params) => limit ? (params.push(limit) && ' limit ?') : '',
 
-	using: ({ttl, timestamp}, params) => {
+	using: ({ ttl, timestamp }, params) => {
 		let using = [];
 		ttl && params.push(ttl) && using.push('ttl ?');
 		timestamp && params.push(timestamp) && using.push('timestamp ?');

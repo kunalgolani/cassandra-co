@@ -15,9 +15,9 @@ var _ = require('underskore'),
  * @param {Object} options [optional] Any other client options as defined in http://www.datastax.com/drivers/nodejs/2.0/global.html#ClientOptions
  */
 
-function CassandraCo(keyspace, hosts, {cache, ...options} = {}) {
+function CassandraCo(keyspace, hosts, { cache, ...options } = {}) {
 	if (!(this instanceof CassandraCo))
-		return new CassandraCo(keyspace, hosts, {cache, ...options});
+		return new CassandraCo(keyspace, hosts, { cache, ...options });
 
 	this.keyspace = keyspace;
 	this.hosts = hosts;
