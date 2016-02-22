@@ -32,6 +32,3 @@ node_modules
 
 # Coveralls
 .coveralls.yml
-
-# Generated Files
-lib
