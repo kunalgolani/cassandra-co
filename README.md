@@ -143,9 +143,11 @@ yield starks[0].delete('born');
 
 ## Caveats
 - Only prepared statements are supported. All operations will be executed as prepared statements.
-- cassandra-co needs the following ES6/7 features.
+- cassandra-co needs the following ES2015/2016 features.
     + [Generator Functions](http://davidwalsh.name/es6-generators)
     + [Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+    + [Shorthand and Computed Object Properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_2015)
+    + [Spread Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
     + [`Array.prototype.includes`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
 
     You can check if the above features are available in your javascript environment [here](http://kangax.github.io/compat-table/es6/). If you don't have them, you can get them in the following ways:
