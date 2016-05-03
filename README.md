@@ -1,8 +1,9 @@
 # cassandra-co
 
-[![Join the chat at https://gitter.im/kunalgolani/cassandra-co](https://badges.gitter.im/kunalgolani/cassandra-co.svg)](https://gitter.im/kunalgolani/cassandra-co?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![GitHub version][github-img]][github-url]
+[![Join the chat at https://gitter.im/kunalgolani/cassandra-co][gitter-img]][gitter-url]
+[![npm version][version-img]][npm-url]
+[![npm downloads][downloads-img]][npm-url]
+[![GitHub issues][issues-img]][issues-url]
 [![Deps][deps-img]][deps-url]
 [![Dev Deps][devDeps-img]][deps-url]
 [![Peer Deps][peerDeps-img]][deps-url]
@@ -19,6 +20,12 @@ A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandr
 ---
 
 ## Usage
+
+### Installation
+```bash
+npm install --save cassandra-co
+```
+
 ### Promises and yields
 All asynchronous operations return a `Promise`.  Using [`co`](https://github.com/tj/co) or [`koa`](koajs.com), these promises can also be `yield`ed. This documentation uses `yield` instead of `.then()` on the `Promise`s.
 
@@ -156,8 +163,13 @@ yield starks[0].delete('born');
 
 ---
 
-[github-img]: https://badge.fury.io/gh/kunalgolani%2Fcassandra-co.svg
-[github-url]: https://github.com/kunalgolani/cassandra-co
+[gitter-img]: https://badges.gitter.im/kunalgolani/cassandra-co.svg
+[gitter-url]: https://gitter.im/kunalgolani/cassandra-co?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[version-img]: https://img.shields.io/npm/v/cassandra-co.svg
+[npm-url]: https://www.npmjs.com/package/cassandra-co
+[downloads-img]: https://img.shields.io/npm/dt/cassandra-co.svg
+[issues-img]: https://img.shields.io/github/issues-raw/kunalgolani/cassandra-co.svg?maxAge=2592000
+[issues-url]: https://github.com/kunalgolani/cassandra-co/issues
 [deps-img]: https://img.shields.io/david/kunalgolani/cassandra-co.svg
 [devDeps-img]: https://img.shields.io/david/dev/kunalgolani/cassandra-co.svg
 [peerDeps-img]: https://img.shields.io/david/peer/kunalgolani/cassandra-co.svg
