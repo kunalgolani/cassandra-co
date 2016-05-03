@@ -1,5 +1,7 @@
 # cassandra-co
 
+[![Join the chat at https://gitter.im/kunalgolani/cassandra-co](https://badges.gitter.im/kunalgolani/cassandra-co.svg)](https://gitter.im/kunalgolani/cassandra-co?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![GitHub version][github-img]][github-url]
 [![Deps][deps-img]][deps-url]
 [![Dev Deps][devDeps-img]][deps-url]
