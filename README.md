@@ -6,7 +6,6 @@
 [![GitHub issues][issues-img]][issues-url]
 [![Deps][deps-img]][deps-url]
 [![Dev Deps][devDeps-img]][deps-url]
-[![Peer Deps][peerDeps-img]][deps-url]
 
 
 A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandra](https://github.com/3logic/apollo-cassandra/).
@@ -172,5 +171,4 @@ yield starks[0].delete('born');
 [issues-url]: https://github.com/kunalgolani/cassandra-co/issues
 [deps-img]: https://img.shields.io/david/kunalgolani/cassandra-co.svg
 [devDeps-img]: https://img.shields.io/david/dev/kunalgolani/cassandra-co.svg
-[peerDeps-img]: https://img.shields.io/david/peer/kunalgolani/cassandra-co.svg
 [deps-url]: https://github.com/kunalgolani/cassandra-co/blob/master/package.json
