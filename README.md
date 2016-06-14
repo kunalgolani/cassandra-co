@@ -13,8 +13,10 @@ A very basic ORM and Client for Cassandra, inspired by [3logic's apollo-cassandr
 ---
 
 ## Motivation
-- apollo-cassandra requires you to define the schema in code. This means that any time the DB schema is altered, the code also needs to be updated. The code needs to be aware of the schema in the DB even if it's not otherwise using all columns of a table.
+- apollo-cassandra and other node.js Cassandra ORMs require you to define the schema in code. This means that any time the DB schema is altered, the code also needs to be updated. The code needs to be aware of the schema in the DB even if it's not otherwise using all columns of a table.
 - When I looked into the internals of apollo-cassandra before starting this project, I couldn't find evidence of it using [prepared statements](http://docs.datastax.com/en/developer/nodejs-driver/2.1/nodejs-driver/reference/threeSimpleRules.html?scroll=three-simple-rules__prepared-statement-section). With Cassandra, if you're executing the same CQL query with different paramters repeatedly, preparing it makes its execution faster.
+- apollo-cassandra and other node.js Cassandra ORMs don't support es2015 Promises. This is important since with es2016 `async` functions, only Promises can be `await`ed. Also, _#nomorecallbacks!_
+- As of writing this, the last commit on apollo-cassandra was in March, 2015. It seems to be out of active development.
 
 ---
 
@@ -59,6 +61,8 @@ __Example__ Initialize the model for `characters` table
 ```js
 var Characters = yield db.getModel('characters');
 ```
+
+Unlike with most other Cassandra node.js ORMs, you don't need to define the model yourself. This statement fetches the model from the schema meta-tables for you.
 
 ### SELECT
 __Parameters__

@@ -35,20 +35,20 @@
   "homepage": "https://github.com/kunalgolani/cassandra-co",
   "dependencies": {
     "cassandra-driver": "~3.0.0",
-    "es6-promisify": "~4.0.0",
+    "es6-promisify": "~4.1.0",
     "lru-cache": "~4.0.0",
     "underskore": "~0.0.10"
   },
   "devDependencies": {
-    "babel-cli": "~6.7.0",
+    "babel-cli": "~6.10.0",
     "babel-istanbul": "~0.8.0",
-    "babel-plugin-syntax-object-rest-spread": "~6.5.0",
-    "babel-plugin-transform-es2015-destructuring": "~6.6.0",
-    "babel-plugin-transform-es2015-parameters": "~6.7.0",
-    "babel-plugin-transform-object-rest-spread": "~6.6.0",
+    "babel-plugin-syntax-object-rest-spread": "~6.8.0",
+    "babel-plugin-transform-es2015-destructuring": "~6.9.0",
+    "babel-plugin-transform-es2015-parameters": "~6.9.0",
+    "babel-plugin-transform-object-rest-spread": "~6.8.0",
     "chai": "~3.5.0",
-    "eslint": "~2.8.0",
-    "husky": "~0.11.4",
-    "mocha": "~2.4.0"
+    "eslint": "~2.12.0",
+    "husky": "~0.11.0",
+    "mocha": "~2.5.0"
   }
 }
