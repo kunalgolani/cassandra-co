@@ -8,7 +8,6 @@ rules:
     operator-linebreak:
         - 2
         - after
-    prefer-const: 2
     semi:
         - 2
         - always
