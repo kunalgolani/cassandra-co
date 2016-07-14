@@ -8,8 +8,7 @@ rules:
     operator-linebreak:
         - 2
         - after
-    prefer-const: 1
-    require-yield: 0
+    prefer-const: 2
     semi:
         - 2
         - always
