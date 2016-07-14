@@ -118,8 +118,8 @@ module.exports = function *(table, db) {
 		},
 
 		/**
-		 * @param {String} column [optional] the specific counter column to decrement, not required if there's only one such column
 		 * @param {Number} by [optional] the amount to decrement the counter by, assumed 1 if not given
+		 * @param {String} column [optional] the specific counter column to decrement, not required if there's only one such column
 		 */
 		*decrement(by = 1, column = _.findKey(_columns, type => type === 'counter')) {
 			this._validate();

@@ -22,7 +22,7 @@ module.exports = {
 	from: table => ' from ' + table,
 
 	values: (data, params) => {
-		let values = _.values(data);
+		const values = _.values(data);
 
 		params.push(...values);
 
@@ -37,7 +37,7 @@ module.exports = {
 
 	where: (criteria, params) => {
 
-		let where = _(criteria)
+		const where = _(criteria)
 						.chain()
 						.omit(v => v === undefined)
 						.map((conditions, column) => {
@@ -83,7 +83,7 @@ module.exports = {
 	limit: ({ limit }, params) => limit ? (params.push(limit) && ' limit ?') : '',
 
 	using: ({ ttl, timestamp }, params) => {
-		let using = [];
+		const using = [];
 		ttl && params.push(ttl) && using.push('ttl ?');
 		timestamp && params.push(timestamp) && using.push('timestamp ?');
 		return using.length ? ' using ' + using.join(' and ') : '';
