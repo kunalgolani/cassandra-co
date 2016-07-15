@@ -48,7 +48,7 @@
     "babel-plugin-transform-object-rest-spread": "~6.8.0",
     "chai": "~3.5.0",
     "eslint": "~3.0.0",
-    "eslint-config-node": "~0.0.2",
+    "eslint-config-node": "~0.1.0",
     "husky": "~0.11.0",
     "mocha": "~2.5.0"
   }
